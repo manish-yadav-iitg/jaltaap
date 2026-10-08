@@ -1,0 +1,22 @@
+# Everything `python server.py` needs. Install with:
+#   python -m pip install -r requirements.txt
+# Heavy optional extras (Chronos model, Strands agent, Telegram bot, OSM routing) are in requirements-extras.txt;
+# the server starts without them and those features fall back.
+
+# core
+requests
+requests-cache
+pandas
+numpy
+scipy
+scikit-learn
+networkx
+python-dotenv
+thermofeel
+
+# web app
+fastapi
+uvicorn[standard]
+
+# AWS: Bedrock, SNS, Location, S3, DynamoDB (Lambda + API Gateway via deploy/)
+boto3

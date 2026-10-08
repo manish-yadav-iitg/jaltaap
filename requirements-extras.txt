@@ -1,0 +1,19 @@
+# Optional extras. Install after requirements.txt with:
+#   python -m pip install -r requirements-extras.txt
+# If one of these fails to install on your Python version, the app still runs without it.
+
+# AWS open source: Strands Agents SDK (agent-written alerts; + Ollama for free local runs)
+strands-agents[ollama]
+
+# Amazon Chronos forecasting model (pulls torch + transformers)
+chronos-forecasting
+
+# safe walking routes from OpenStreetMap
+osmnx
+
+# flood replay charts + Telegram bot
+matplotlib
+python-telegram-bot[job-queue]
+
+# real NDVI numbers from Sentinel-2 (AWS Open Data). Without it you still get the scene previews.
+# rasterio

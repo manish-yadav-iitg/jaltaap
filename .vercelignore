@@ -1,0 +1,29 @@
+# never upload secrets
+.env
+.env.*
+!.env.example
+
+# local-only stuff the website doesn't need
+.cache/
+.venv/
+venv/
+__pycache__/
+*.pyc
+_backup_*/
+extras/
+scripts/
+deploy/
+bot.py
+run.bat
+requirements-extras.txt
+data/jaltaap.db
+data/photos/
+data/files/*
+!data/files/.keep
+outputs/*.png
+DEPLOY_VERCEL.md
+
+# hackathon files and the AWS container setup
+hackathon/
+DEPLOY_AWS.md
+.dockerignore

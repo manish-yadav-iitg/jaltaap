@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JalTaap — water & heat desk for India</title>
+<meta name="description" content="Heat, floods, drought, groundwater, tankers and pipe leaks for any place in India, in one desk. Built on AWS.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' fill='%23F4F0E6'/><path d='M20 6c-6 9-10 14-10 19a10 10 0 0 0 20 0c0-5-4-10-10-19z' fill='none' stroke='%23201D18' stroke-width='3'/><path d='M10 25h20' stroke='%23BE4A1E' stroke-width='3'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,50;1,9..144,600..700,50&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Noto+Sans+Devanagari:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="mast">
+  <a class="logo" href="/" aria-label="JalTaap home">
+    <!-- a drop cut by the horizon line: water above, heat below -->
+    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4c-6 9-11 15-11 21a11 11 0 0 0 22 0c0-6-5-12-11-21z" fill="none" stroke="#201D18" stroke-width="2.6"/><path d="M9.5 25.5h21" stroke="#BE4A1E" stroke-width="2.6"/><path d="M13 30.5h14M16 34.5h8" stroke="#1F6170" stroke-width="2.2"/></svg>
+  </a>
+  <div class="title"><b>JalTaap</b><span>water · heat · desk</span></div>
+  <div class="where">
+    <label for="q">Place</label>
+    <input id="q" type="search" placeholder="Town, village or district in India" autocomplete="off">
+    <ul id="results" role="listbox" hidden></ul>
+  </div>
+  <div class="mast-right">
+    <button class="helpbtn" id="helpbtn" title="Show the Start here guide" aria-label="Show the Start here guide">?</button>
+    <select id="lang" aria-label="Alert language"></select>
+    <button class="awspill" id="awspill" title="AWS services status"><i></i><span>AWS</span></button>
+  </div>
+</header>
+
+<div class="frame">
+  <nav class="rail" id="rail" aria-label="Desks">
+    <button data-desk="pulse" aria-current="true"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg>Pulse</button>
+    <button data-desk="heat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg>Heat</button>
+    <button data-desk="flood"><svg viewBox="0 0 24 24"><path d="M2 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 20c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M12 3v7M9 7l3 3 3-3"/></svg>Flood</button>
+    <button data-desk="drought"><svg viewBox="0 0 24 24"><path d="M3 21h18M6 21l2-6M12 21v-8M18 21l-2-6M7 9l2 2 3-4 3 4 2-2"/></svg>Drought</button>
+    <button data-desk="gw"><svg viewBox="0 0 24 24"><path d="M4 4h16M6 4v16h12V4M6 12h12M9 16h6M12 8v8"/></svg>Ground<br>water</button>
+    <button data-desk="tankers"><svg viewBox="0 0 24 24"><rect x="2" y="8" width="13" height="8" rx="3"/><path d="M15 11h4l3 3v2h-7M6 19a2 2 0 1 0 0-.1M18 19a2 2 0 1 0 0-.1"/></svg>Tankers</button>
+    <button data-desk="leaks"><svg viewBox="0 0 24 24"><path d="M2 9h8v6H2M14 9h8v6h-8M10 12h4"/><path d="M12 15c-1 2-1.5 3-1.5 4a1.5 1.5 0 0 0 3 0c0-1-.5-2-1.5-4z"/></svg>Leaks</button>
+    <div class="sep"></div>
+    <button data-desk="field"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><path d="M9 10h6M12 7v6"/></svg>Field<br>reports</button>
+    <button data-desk="replay"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 2"/></svg>Replay</button>
+    <button data-desk="aws"><svg viewBox="0 0 24 24"><path d="M3 15c5 4 13 4 18 0M17 17l4-2-1 4M7 11V6l3-2 3 2v5M14 11V8l3-2 3 2v3"/></svg>AWS</button>
+  </nav>
+
+  <main class="sheet" id="sheet" aria-live="polite">
+    <div class="sheet-inner" id="sheet-inner"></div>
+    <div class="copilot" id="copilot">
+      <div class="answer" id="answer" hidden></div>
+      <form id="askform" autocomplete="off">
+        <input id="askq" placeholder="Ask JalTaap about this place…" aria-label="Ask a question">
+        <button type="submit">Ask</button>
+      </form>
+    </div>
+  </main>
+
+  <section class="mapcol">
+    <div id="map" role="application" aria-label="Map of India"></div>
+    <div class="maptools" id="maptools"></div>
+    <div class="legend" id="legend"></div>
+    <div class="mapcard" id="mapcard" hidden></div>
+    <div class="toast" id="toast" role="status" hidden></div>
+  </section>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<script src="/static/app.js"></script>
+<script src="/static/desks.js"></script>
+</body>
+</html>

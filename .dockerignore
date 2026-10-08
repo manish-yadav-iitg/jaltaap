@@ -1,0 +1,14 @@
+# Only what the Lambda image needs goes into the Docker build (deploy/web/Dockerfile).
+# Everything else, above all .env and your keys, stays on your laptop.
+*
+!server.py
+!requirements.txt
+!jaltaap/
+!web/
+!data/events.json
+!data/heat_cities.json
+!data/stations.json
+!outputs/
+!deploy/web/requirements.txt
+**/__pycache__
+**/*.pyc

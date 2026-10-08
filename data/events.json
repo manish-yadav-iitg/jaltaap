@@ -1,0 +1,35 @@
+[
+ {
+  "id": "kerala2018",
+  "name": "Periyar river, Kerala floods (Aug 2018)",
+  "lat": 10.17,
+  "lon": 76.4,
+  "peak_date": "2018-08-16",
+  "note": "Worst Kerala flood in a century, ~480 deaths"
+ },
+ {
+  "id": "assam2022",
+  "name": "Brahmaputra at Guwahati, Assam floods (Jun 2022)",
+  "lat": 26.17,
+  "lon": 91.67,
+  "peak_date": "2022-06-17",
+  "note": "Over 4.7 million people hit in Assam"
+ },
+ {
+  "id": "godavari2022",
+  "name": "Godavari at Bhadrachalam, Telangana (Jul 2022)",
+  "lat": 17.67,
+  "lon": 80.89,
+  "peak_date": "2022-07-16",
+  "note": "Godavari crossed the 3rd warning level at Bhadrachalam"
+ },
+ {
+  "id": "yamuna2023",
+  "name": "Yamuna at Delhi (Jul 2023)",
+  "lat": 28.62,
+  "lon": 77.25,
+  "peak_date": "2023-07-13",
+  "note": "Honest miss case: driven by barrage releases the model can't see. This is why citizen reports exist.",
+  "honest_miss": true
+ }
+]
